@@ -34,7 +34,10 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         @foreach($categories as $category)
                             <li class="nav-item">
-                                <a class="nav-link {{$category->icon}}" href="{{ url('/' . $category->id) }}"> {{ $category->name }}</a>
+                                <form action="{{ url('/') }}" method="GET" class="d-inline">
+                                    <input type="hidden" name="category" value="{{ $category->id }}">
+                                    <button type="submit" class="nav-link btn btn-link p-0 {{$category->icon}}">{{ $category->name }}</button>
+                                </form>
                             </li>
                         @endforeach
                         @guest

@@ -1,12 +1,11 @@
 @php
-    $category = App\Models\Category::find(request()->segment(1)); // Get the first segment of the URL
     $user = auth()->user();
 @endphp
 
 @push('title')
     <title>
-        @if($category)
-            Κατηγορία: {{ $category->name }}
+        @if(request()->query('category'))
+            Κατηγορία: {{ App\Models\Category::find(request()->query('category'))->name }}
         @else
             Αρχική Σελίδα
         @endif

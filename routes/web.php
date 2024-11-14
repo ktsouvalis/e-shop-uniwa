@@ -5,9 +5,11 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/{category?}', function (Category $category = null) {
-    if($category) {
-        $products = $category->products;
+Route::get('/', function (Request $request) {
+    $categoryId = $request->query('category');
+    if ($categoryId) {
+        $category = Category::find($categoryId);
+        $products = $category ? $category->products : collect();
     } else {
         $products = Product::all();
     }
