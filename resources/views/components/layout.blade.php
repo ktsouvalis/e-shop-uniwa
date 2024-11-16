@@ -45,11 +45,15 @@
                 <div class="hstack gap-3">
                     <div id="cart-icon">
                     @php
-                        if(optional(auth()->user()->cart)->contents()->count() > 0){
+                    if(auth()->user()->cart){
+                        if(auth()->user()->cart->contents()->count() > 0){
                             $icon = 'bi-cart-fill text-danger';
                         }else{
                             $icon = 'bi-cart';
                         }
+                    }else{
+                        $icon = 'bi-cart';
+                    }
                     @endphp
                     <a class="nav-link bi {{$icon}}" data-bs-toggle="tooltip" title="Το καλάθι μου" href="{{ url('/cart') }}"> </a>
                     </div>

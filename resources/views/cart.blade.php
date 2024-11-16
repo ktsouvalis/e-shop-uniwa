@@ -1,9 +1,13 @@
+@php
+    $cart = auth()->user()->cart;
+@endphp
 <x-layout>
     <div class="container mt-4">
         <h2>Το Καλάθι Μου</h2>
-        @if($cart->contents()->isEmpty())
+        
+        @if($cart && $cart->contents()->isEmpty())
             <p>Το καλάθι σας είναι άδειο.</p>
-        @else
+        @elseif($cart)
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -18,14 +22,20 @@
                     @foreach($cart->contents() as $item)
                         <tr>
                             <td>{{ $item->name }}</td>
-                            <td>
-                                <input type="number" class="form-control form-control-sm quantity-input" data-product-id="{{ $item->id }}" value="{{ $item->quantity }}" min="1">
-                            </td>
                             <td>{{ $item->price }} €</td>
                             <td>{{ $item->price * $item->quantity }} €</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary update-quantity-btn bi bi-arrow-repeat" data-bs-toggle="tooltip" title="Ενημέρωση Καλαθιού" data-update-url="{{route("cart.update_quantity",['id'=>$item->id])}}" data-product-id="{{ $item->id }}"></button>
-                                <button class="btn btn-sm btn-danger remove-item-btn bi bi-x-circle" data-bs-toggle="tooltip" title="Αφαίρεση από το καλάθι" data-product-id="{{ $item->id }}"></button>
+                            <td class="hstack gap-2">
+                                <form action="{{route('cart.update_quantity', ['id'=>$item->id])}}" method="post">
+                                    @csrf
+                                    <div class="hstack gap-2">
+                                    <input type="number" name="quantity" value="{{ $item->quantity }}">
+                                    <button type="submit" class="btn btn-sm btn-primary update-quantity-btn bi bi-arrow-repeat" data-bs-toggle="tooltip" title="Ενημέρωση Καλαθιού"></button>
+                                    </div>
+                                </form>
+                                <form action="{{ route('cart.remove_item', ['id' => $item->id]) }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-danger remove-item-btn bi bi-x-circle" data-bs-toggle="tooltip" title="Αφαίρεση από το καλάθι"></button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -34,9 +44,12 @@
             <div class="text-end">
                 <strong>Συνολικό Ποσό: {{ $cart->contents()->sum(fn($item) => $item->price * $item->quantity) }} €</strong>
             </div>
+            <a href="{{ route('checkout') }}" class="btn btn-primary">Ολοκλήρωση Αγοράς</a>
+        @else
+            <p>Το καλάθι σας είναι άδειο.</p>
         @endif
     </div>
-    @push('scripts')
+    {{-- @push('scripts')
     <script>
         $(document).ready(function () {
             $('.update-quantity-btn').on('click', function () {
@@ -53,7 +66,7 @@
                     },
                     data: JSON.stringify({ quantity: quantity }),
                     success: function (data) {
-                        alert(data.message);
+                        // alert(data.message);
                     },
                     error: function (error) {
                         console.error('Error:', error);
@@ -74,15 +87,15 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function (data) {
-                        location.reload();
+                        // location.reload();
                     },
                     error: function (error) {
                         console.error('Error:', error);
-                        alert('Υπήρξε πρόβλημα με την αφαίρεση του προϊόντος.');
+                        // alert('Υπήρξε πρόβλημα με την αφαίρεση του προϊόντος.');
                     }
                 });
             });
         });
     </script>
-    @endpush
+    @endpush --}}
 </x-layout>

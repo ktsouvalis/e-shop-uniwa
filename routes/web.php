@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function (Request $request) {
     $categoryId = $request->query('category');
@@ -31,10 +32,21 @@ Route::get('/logout', [UserController::class, 'logout'])->middleware('auth')->na
 Route::post('/add_to_cart/{product}', [CartController::class, 'add_to_cart'])->middleware('auth')->name('add_to_cart');
 
 Route::get('/cart', function () {
-    $cart = Cart::firstOrCreate(['user_id' => Auth::id()]);
-    return view('cart')->with('cart', $cart);
+    return view('cart')->with('cart');
 })->middleware('auth')->name('cart');
 
 Route::post('/cart/update-quantity/{id}', [CartController::class, 'update_quantity'])->name('cart.update_quantity');
 Route::post('/cart/remove-item/{id}', [CartController::class, 'remove_item'])->name('cart.remove_item');
+
+Route::get('/checkout', function () {
+    $cart = Auth::user()->cart;
+    return view('checkout')->with('cart', $cart);
+})->middleware('auth')->name('checkout');
+
+Route::post('/order/store', [OrderController::class, 'store'])->middleware('auth')->name('order.store');
+
+Route::get('/orders', function () {
+    $orders = Auth::user()->orders;
+    return view('orders')->with('orders', $orders);
+})->middleware('auth')->name('orders');
 
