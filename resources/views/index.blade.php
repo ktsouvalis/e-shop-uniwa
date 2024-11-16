@@ -11,6 +11,46 @@
         @endif
     </title>
 @endpush
+@push('scripts')
+<script>
+    $(document).ready(function () {
+    const cartIcon = $('.bi-cart');
+    const addToCartButtons = $('.add-to-cart-btn');
+
+    addToCartButtons.on('click', function (event) {
+        event.preventDefault();
+        const productId = $(this).data('product-id');
+        const addToCartUrl = $(this).data('add-to-cart-url');
+        const quantity = $(this).closest('.hstack').find('[data-quantity]').val();
+
+        $.ajax({
+            url: addToCartUrl,
+            method: 'POST',
+            contentType: 'application/json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: JSON.stringify({ product_id: productId, quantity: quantity }),
+            success: function (data) {
+                console.log(data);
+                if (data.status === 'success') {
+                    // Update cart icon with a red badge
+                    cartIcon.removeClass('bi-cart').addClass('bi-cart-fill text-danger');
+                    // Show success alert
+                    alert(data.message);
+                } else {
+                    alert(data.message);
+                }
+            },
+            error: function (error) {
+                console.error('Error:', error);
+                alert('Υπήρξε πρόβλημα με την προσθήκη του προϊόντος στο καλάθι.');
+            }
+        });
+    });
+});
+</script>
+@endpush
 <x-layout>
     <div class="container mt-4 my-3">
         <div class="row gy-4">
@@ -22,21 +62,22 @@
                             <h5 class="card-title">{{ $product->name }}</h5>
                             <p class="card-text">{{ $product->description }}</p>
                             <p class="card-text"><strong>{{ $product->price }} €</strong></p>
+                            @if($product->stock > 0)
                             @auth
-                                <form action="{{route("add_to_cart")}}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{$product->id}}">
-                                    <input type="hidden" name="user_id" value="{{$user->id}}">
-                                    <label for="quantity">Ποσότητα:</label>
-                                    <input type="text" name="quantity" value="1">
-
-                                    <button type="submit" class="btn btn-primary bi bi-cart-plus"></button>
-                                </form>
+                                <p class="card-text text-success">Διαθέσιμο</p>
+                                
+                                    <div class="hstack gap-2">
+                                    <div class="me-2">
+                                        <label for="quantity" class="form-label d-none">Ποσότητα:</label>
+                                        <input type="number" class="form-control form-control-sm" data-quantity name="quantity" id="quantity" value="1" min="1" style="width: 60px;">
+                                    </div>
+                                    <button type="submit" data-product-id="{{ $product->id }}" data-add-to-cart-url="{{ route('add_to_cart', ['product' => $product->id]) }}" class="btn btn-primary btn-sm add-to-cart-btn">
+                                        <i class="bi bi-cart-plus"></i>
+                                    </button>
+                                </div>
                             @endauth
-                            @if($product->stock < 10 && $product->stock > 0)
-                                <p class="text-primary">Μόνο {{ $product->stock }} απομένουν!</p>
-                            @endif
-                            @if($product->stock == 0)
+                            <p class="text-primary my-2">Μόνο {{ $product->stock }} απομένουν!</p>
+                            @else
                                 <p class="text-danger">Το προϊόν είναι εξαντλημένο!</p>
                             @endif
                         </div>

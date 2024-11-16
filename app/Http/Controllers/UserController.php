@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -13,11 +14,19 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->route('index');
+            return redirect()->route('index')->with('success', 'Καλως ήρθατε '.Auth::user()->name);
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+        return back()
+            ->withInput()
+            ->with('failure','Ελέγξτε τα στοιχεία σας και προσπαθήστε ξανά');	
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        return redirect()->route('index')->with('success', 'Αποσυνδεθήκατε');
     }
 }

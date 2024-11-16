@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Product;
 
 class Cart extends Model
 {
@@ -16,15 +17,19 @@ class Cart extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function contents(){
+    public function contents()
+    {
+        if (!$this->items) {
+            return collect();
+        }
         $items = json_decode($this->items, true);
-        $productIds = array_keys($items);
+        $productIds = array_column($items, 'product_id');
         $products = Product::whereIn('id', $productIds)->get();
 
         // Attach quantities to the products
         foreach ($products as $product) {
-            $product->quantity = $items[$product->id];
+            $product->quantity = collect($items)->firstWhere('product_id', $product->id)['quantity'];
         }
-        return $products;
+        return collect($products);
     }
 }
