@@ -1,6 +1,12 @@
+@push('title')
+    <title>Ιστορικό Παραγγελιών</title>
+@endpush
 <x-layout>
     <div class="container mt-5">
-        <h2>Your Orders</h2>
+        <h2>Ιστορικό Παραγγελιών</h2>
+        @if($orders->isEmpty())
+            <p>Δεν έχετε παραγγελίες στο ιστορικό σας</p>
+        @else
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -18,5 +24,6 @@
                 @endforeach
             </tbody>
         </table>
+        @endif
     </div>
 </x-layout>

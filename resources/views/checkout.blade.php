@@ -1,3 +1,6 @@
+@push('title')
+    <title>Checkout</title>
+@endpush
 <x-layout>
     <div class="container mt-5">
         <table class="table table-bordered">

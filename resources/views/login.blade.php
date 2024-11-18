@@ -1,3 +1,6 @@
+@push('title')
+    <title>Login</title>
+@endpush
 <x-layout>
     <div class="container mt-5">
         <div class="row justify-content-center">

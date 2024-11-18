@@ -37,7 +37,8 @@ class CartController extends Controller
             if ($item['product_id'] == $productId) {
                 return response()->json([
                     'status' => 'failure',
-                    'message' => 'Το προϊόν υπάρχει ήδη στο καλάθι'
+                    'message' => 'Το προϊόν υπάρχει ήδη στο καλάθι',
+                    'new_stock' => $product->stock
                 ]);
             }
         }
@@ -57,7 +58,8 @@ class CartController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Το προϊόν προστέθηκε στο καλάθι!'
+            'message' => 'Το προϊόν προστέθηκε στο καλάθι!',
+            'new_stock' => $product->stock
         ]);
     }
 

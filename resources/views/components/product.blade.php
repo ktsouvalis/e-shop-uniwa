@@ -19,7 +19,7 @@
                     </button>
                 </div>
             @endauth
-            <p class="text-primary my-2">Μόνο {{ $product->stock }} απομένουν!</p>
+            <p id="{{$product->id}}_stock" class="text-primary my-2">Μόνο {{ $product->stock }} απομένουν!</p>
             @else
                 <p class="text-danger">Το προϊόν είναι εξαντλημένο!</p>
             @endif

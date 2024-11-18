@@ -36,6 +36,11 @@
                 if (data.status === 'success') {
                     // Update cart icon with a red badge
                     cartIcon.removeClass('bi-cart').addClass('bi-cart-fill text-danger');
+
+                    //update stock div
+                    const stockDiv = $(`#${productId}_stock`);
+                    const newStock = data.new_stock;
+                    stockDiv.text(`Μόνο ${newStock} απομένουν!`);
                     // Show success alert
                     alert(data.message);
                 } else {

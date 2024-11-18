@@ -1,6 +1,9 @@
 @php
     $cart = auth()->user()->cart;
 @endphp
+@push('title')
+    <title>Το Καλάθι Μου</title>
+@endpush
 <x-layout>
     <div class="container mt-4">
         <h2>Το Καλάθι Μου</h2>
