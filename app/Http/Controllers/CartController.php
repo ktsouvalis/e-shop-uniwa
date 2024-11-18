@@ -6,8 +6,20 @@ use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
+/**
+ * Class CartController
+ *
+ * @package App\Http\Controllers
+ */
 class CartController extends Controller
 {
+    /**
+     * Add a product to the cart.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Product $product
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function add_to_cart(Request $request, Product $product)
     {
         $userId = auth()->id();
@@ -49,6 +61,13 @@ class CartController extends Controller
         ]);
     }
 
+    /**
+     * Update the quantity of a product in the cart.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $productId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update_quantity(Request $request, $productId)
     {
         $userId = auth()->id();
@@ -87,6 +106,13 @@ class CartController extends Controller
         return redirect(route('cart'))->with('success', 'Το καλάθι σας ενημερώθηκε');
     }
 
+    /**
+     * Remove a product from the cart.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $productId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function remove_item(Request $request, $productId)
     {
         $userId = auth()->id();
@@ -113,7 +139,7 @@ class CartController extends Controller
         $cart->items = json_encode(array_values($items));
         $cart->save();
 
-        // Decrease the product stock
+        // Increase the product stock 
         if ($itemToRemove) {
             $this->decreaseProductStock(Product::find($productId), -$itemToRemove['quantity']);
         }
@@ -123,6 +149,13 @@ class CartController extends Controller
         return redirect(route('cart'))->with('success', 'Το προϊόν αφαιρέθηκε από το καλάθι');
     }
 
+    /**
+     * Decrease the stock of a product.
+     *
+     * @param \App\Models\Product $product
+     * @param int $quantity
+     * @return void
+     */
     private function decreaseProductStock(Product $product, $quantity)
     {
         $product->stock -= $quantity;

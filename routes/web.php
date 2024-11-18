@@ -32,7 +32,7 @@ Route::get('/logout', [UserController::class, 'logout'])->middleware('auth')->na
 Route::post('/add_to_cart/{product}', [CartController::class, 'add_to_cart'])->middleware('auth')->name('add_to_cart');
 
 Route::get('/cart', function () {
-    return view('cart')->with('cart');
+    return view('cart');
 })->middleware('auth')->name('cart');
 
 Route::post('/cart/update-quantity/{id}', [CartController::class, 'update_quantity'])->name('cart.update_quantity');

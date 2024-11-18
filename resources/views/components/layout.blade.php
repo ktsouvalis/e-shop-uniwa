@@ -10,11 +10,6 @@
         @stack('title')
         <link rel="stylesheet" href="{{asset('bootstrap-5.3.3-dist/css/bootstrap.css')}}" rel="stylesheet"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-        
-        {{-- <link href="{{asset('fontawesome-free-6.6.0-web/css/fontawesome.css')}}" rel="stylesheet">
-        <link href="{{asset('fontawesome-free-6.6.0-web/css/brands.css')}}" rel="stylesheet">
-        <link href="{{asset('fontawesome-free-6.6.0-web/css/solid.css')}}" rel="stylesheet">
-        <link href="{{asset('fontawesome-free-6.6.0-web/css/regular.css')}}" rel="stylesheet"> --}}
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="theme-color" content="#ffffff">
@@ -67,7 +62,7 @@
         </div>
     </div>
 </nav>
-    @include('components.messages')
+    <x-messages/>
     {{$slot}}
 
     <footer class="border-top text-center small text-muted py-3">

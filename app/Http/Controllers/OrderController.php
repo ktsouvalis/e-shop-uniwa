@@ -7,8 +7,19 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class OrderController
+ *
+ * @package App\Http\Controllers
+ */
 class OrderController extends Controller
 {
+    /**
+     * Store a new order.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $user = auth()->user();
@@ -39,6 +50,11 @@ class OrderController extends Controller
         return redirect()->route('index')->with('success', 'Η παραγγελία σας ολοκληρώθηκε με επιτυχία');
     }
 
+    /**
+     * Display a listing of the orders.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         $orders = auth()->user()->orders()->with('orderStatus')->get();

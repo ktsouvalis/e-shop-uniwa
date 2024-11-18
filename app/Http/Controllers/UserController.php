@@ -5,8 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class UserController
+ *
+ * @package App\Http\Controllers
+ */
 class UserController extends Controller
 {
+    /**
+     * Handle the user login.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function login(Request $request){
 
         $credentials = $request->only('email', 'password');
@@ -22,6 +33,12 @@ class UserController extends Controller
             ->with('failure','Ελέγξτε τα στοιχεία σας και προσπαθήστε ξανά');	
     }
 
+    /**
+     * Handle the user logout.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout(Request $request){
         Auth::logout();
 
