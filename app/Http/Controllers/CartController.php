@@ -42,6 +42,13 @@ class CartController extends Controller
                 ]);
             }
         }
+        if($product->stock < $quantity) {
+            return response()->json([
+                'status' => 'failure',
+                'message' => 'Το προϊόν δεν υπάρχει σε αρκετή ποσότητα',
+                'new_stock' => $product->stock
+            ]);
+        }
 
         // Add the new product to the items array
         $items[] = [
