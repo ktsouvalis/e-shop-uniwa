@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Address;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,12 +31,13 @@ class OrderController extends Controller
             'expiryDate' => 'required|date_format:m/y',
             'cvv' => 'required|digits:3',
         ]);
+        Address::find($validated['address'])->address;
         DB::beginTransaction();
         try{
             $order = Order::create([
                 'user_id' => auth()->id(),
                 'items' => $user->cart->items,
-                'ship_to' => $validated['address'],
+                'ship_to' => Address::find($validated['address'])->address,
                 'order_status_id' => 1,
             ]);
 
