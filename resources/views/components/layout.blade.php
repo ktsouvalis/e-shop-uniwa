@@ -38,6 +38,9 @@
                     <a class="nav-link bi bi-door-open-fill"  href="{{ route('login') }}" > Σύνδεση</a>
                 @else
                 <div class="hstack gap-3">
+                    @if(auth()->user()->cart and !request()->routeIs('cart'))
+                        <x-timer/>
+                    @endif
                     <div id="cart-icon">
                     @php
                     if(auth()->user()->cart){

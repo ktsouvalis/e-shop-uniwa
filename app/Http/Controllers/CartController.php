@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -59,13 +60,15 @@ class CartController extends Controller
         // Save the updated items back to the cart
         $cart->items = json_encode($items);
         $cart->save();
-
+        
         // Decrease the product stock
         $this->decreaseProductStock($product, $quantity);
 
+        $remainingMinutes = floor(30 - $cart->created_at->diffInMinutes(Carbon::now()));
         return response()->json([
             'status' => 'success',
-            'message' => 'Το προϊόν προστέθηκε στο καλάθι!',
+            'message' => 'Το προϊόν προστέθηκε στο καλάθι! Έχετε '.$remainingMinutes.' λεπτά για να ολοκληρώσετε την αγορά',
+            
             'new_stock' => $product->stock
         ]);
     }
