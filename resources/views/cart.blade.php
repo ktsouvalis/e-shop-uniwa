@@ -4,6 +4,7 @@
 @push('title')
     <title>Το Καλάθι Μου</title>
 @endpush
+
 <x-layout>
     <div class="container mt-4">
         <h2>Το Καλάθι Μου</h2>
@@ -11,6 +12,7 @@
         @if($cart && $cart->contents()->isEmpty())
             <p>Το καλάθι σας είναι άδειο.</p>
         @elseif($cart)
+            <x-timer/>
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -30,7 +32,7 @@
             <div class="text-end">
                 <strong>Συνολικό Ποσό: {{ $cart->contents()->sum(fn($item) => $item->price * $item->quantity) }} €</strong>
             </div>
-            <a href="{{ route('checkout') }}" class="btn btn-primary">Ολοκλήρωση Αγοράς</a>
+            <a href="{{ route('checkout') }}" class="btn btn-primary mb-3">Ολοκλήρωση Αγοράς</a>
         @else
             <p>Το καλάθι σας είναι άδειο.</p>
         @endif

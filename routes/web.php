@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
@@ -43,6 +44,14 @@ Route::get('/cart', function () {
 
 Route::post('/cart/update-quantity/{id}', [CartController::class, 'update_quantity'])->name('cart.update_quantity');
 Route::post('/cart/remove-item/{id}', [CartController::class, 'remove_item'])->name('cart.remove_item');
+
+Route::post('/cart/clear', function(){
+    Artisan::call('carts:empty');
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Το καλάθι άδειασε επιτυχώς'
+    ]);
+})->name('clear-carts');
 
 Route::get('/checkout', function () {
     $cart = Auth::user()->cart;
