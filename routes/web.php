@@ -21,8 +21,14 @@ Route::get('/', function (Request $request) {
     return view('index')->with('products', $products);
 })->name('index');
 
+Route::get('/register', function () {
+    return view('auth.register');
+})->middleware('guest')->name('register');
+
+Route::post('/register', [UserController::class, 'register'])->middleware('guest');
+
 Route::get('/login', function () {
-    return view('login');
+    return view('auth.login');
 })->middleware('guest')->name('login');
 
 Route::post('/login', [UserController::class, 'login'])->middleware('guest');

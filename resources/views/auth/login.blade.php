@@ -5,7 +5,7 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card">
+                <div class="card m-3">
                     <div class="card-header text-center">
                         <h3>Login</h3>
                     </div>
@@ -23,7 +23,7 @@
                             <button type="submit" class="btn btn-primary w-100">Login</button>
                         </form>
                     </div>
-                    
+                    <a href="{{ route('register') }}" class="text-center">Don't have an account? Register</a>
                 </div>
             </div>
         </div>
