@@ -1,11 +1,8 @@
-@php
-    $cart = auth()->user()->cart;   
-@endphp
 @push('scripts')
 <script>
     $(document).ready(function () {
         const item = @json($item);
-        const countdownDuration = 7 * 60 * 1000;
+        const countdownDuration = 15 * 60 * 1000;
 
         function updateCountdown() {
             const now = new Date().getTime();
