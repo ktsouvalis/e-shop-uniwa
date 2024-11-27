@@ -12,8 +12,7 @@
         @if($cart && $cart->contents()->isEmpty())
             <p>Το καλάθι σας είναι άδειο.</p>
         @elseif($cart)
-            <x-timer/>
-            <table class="table table-bordered">
+            <table class="table table-bordered table-striped table-hover table-dark text-center">
                 <thead>
                     <tr>
                         <th>Προϊόν</th>

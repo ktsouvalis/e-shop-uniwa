@@ -4,19 +4,22 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
-        const cartCreatedAt = new Date("{{ optional($cart)->created_at }}").getTime();
-        const countdownElement = $('#countdown span');
-        const countdownDuration = 30 * 60 * 1000;
+        const item = @json($item);
+        const countdownDuration = 7 * 60 * 1000;
 
         function updateCountdown() {
             const now = new Date().getTime();
-            const distance = countdownDuration - (now - cartCreatedAt);
+            const itemElement = $(`#countdown-${item.id} span`);
+            const itemAddedAt = new Date(item.time_added).getTime();
+            const distance = countdownDuration - (now - itemAddedAt);
+
             if (distance <= 0) {
                 $.ajax({
-                    url: '{{ route("clear-carts") }}',
+                    url: '{{ route("clear-cart") }}',
                     type: 'POST',
                     data: {
-                        _token: '{{ csrf_token() }}'
+                        _token: '{{ csrf_token() }}',
+                        product_id: item.id
                     },
                     success: function(response) {
                         window.location.reload();
@@ -31,7 +34,7 @@
                 if (minutes < 10) {
                     minutes = `0${minutes}`;
                 }
-                countdownElement.html(`${minutes}:${seconds}`);
+                itemElement.html(`${minutes}:${seconds}`);
             }
         }
 
@@ -40,7 +43,7 @@
     });
 </script>
 @endpush
-<div id="countdown" class="card bg-warning mb-3 text-end p-3" style="width: 100px; margin-left: auto;">
+<div id="countdown-{{ $item->id }}" class="card bg-warning text-dark m-1 px-1 center-timer" style="width: 75px; margin-left: auto;">
     <div class="d-flex align-items-center small">
         <i class="bi bi-hourglass-split me-2"></i>
         <span></span>

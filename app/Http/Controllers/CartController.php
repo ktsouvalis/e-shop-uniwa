@@ -54,7 +54,8 @@ class CartController extends Controller
         // Add the new product to the items array
         $items[] = [
             'product_id' => $productId,
-            'quantity' => $quantity
+            'quantity' => $quantity,
+            'time_added' => now()
         ];
 
         // Save the updated items back to the cart
@@ -64,10 +65,10 @@ class CartController extends Controller
         // Decrease the product stock
         $this->decreaseProductStock($product, $quantity);
 
-        $remainingMinutes = floor(30 - $cart->created_at->diffInMinutes(Carbon::now()));
+       
         return response()->json([
             'status' => 'success',
-            'message' => 'Το προϊόν προστέθηκε στο καλάθι! Έχετε '.$remainingMinutes.' λεπτά για να ολοκληρώσετε την αγορά',
+            'message' => 'Το προϊόν προστέθηκε στο καλάθι!',
             
             'new_stock' => $product->stock
         ]);
@@ -172,5 +173,54 @@ class CartController extends Controller
     {
         $product->stock -= $quantity;
         $product->save();
+    }
+
+    /**
+     * Clear expired items from the cart.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function clear_expired_items(Request $request)
+    {
+        $userId = auth()->id();
+        $productId = $request->input('product_id');
+
+        // Fetch the user's cart
+        $cart = Cart::where('user_id', $userId)->first();
+        $items = json_decode($cart->items, true) ?? [];
+
+        // Find the item to remove and its quantity
+        $itemToRemove = null;
+        foreach ($items as $item) {
+            if ($item['product_id'] == $productId) {
+                $itemToRemove = $item;
+                break;
+            }
+        }
+
+        // Remove the expired item
+        $items = array_filter($items, function ($item) use ($productId) {
+            return $item['product_id'] != $productId;
+        });
+
+        // Save the updated items back to the cart
+        $cart->items = json_encode(array_values($items));
+        $cart->save();
+
+        // Increase the product stock
+        if ($itemToRemove) {
+            $this->decreaseProductStock(Product::find($productId), -$itemToRemove['quantity']);
+        }
+
+        // Delete the cart if empty
+        if (empty($items)) {
+            $cart->delete();
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Το προϊόν αφαιρέθηκε από το καλάθι'
+        ]);
     }
 }

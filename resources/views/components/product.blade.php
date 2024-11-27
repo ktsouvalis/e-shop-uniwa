@@ -1,3 +1,13 @@
+@push('links')
+<style>
+    .card-body {
+        background-image: url('{{ asset('images/product-card-body.jpg') }}');
+        background-size: cover;
+        background-repeat: no-repeat;
+        /* background-attachment: fixed; */
+    }
+</style>
+@endpush
 <div class="col-md-4">
     <div class="card h-auto shadow">
         <img src="{{ asset('images/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">

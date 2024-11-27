@@ -50,6 +50,7 @@ class Cart extends Model
         // Attach quantities to the products
         foreach ($products as $product) {
             $product->quantity = collect($items)->firstWhere('product_id', $product->id)['quantity'];
+            $product->time_added = collect($items)->firstWhere('product_id', $product->id)['time_added'];
         }
         return collect($products);
     }

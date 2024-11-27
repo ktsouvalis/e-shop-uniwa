@@ -28,7 +28,7 @@ class RemoveExpiredCarts extends Command
      */
     public function handle()
     {
-        $expiredCarts = Cart::where('created_at', '<', Carbon::now()->subMinutes(30))->get();
+        $expiredCarts = Cart::where('created_at', '<', Carbon::now()->subMinutes(15))->get();
         if($expiredCarts->isEmpty()) {
             $this->info('No expired carts found.');
             return;

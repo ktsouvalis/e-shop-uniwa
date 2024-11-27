@@ -35,7 +35,7 @@
                 console.log(data);
                 if (data.status === 'success') {
                     // Update cart icon with a red badge
-                    cartIcon.removeClass('bi-cart').addClass('bi-cart-fill text-danger');
+                    cartIcon.removeClass('bi-cart text-light').addClass('bi-cart-fill text-danger');
 
                     //update stock div
                     const stockDiv = $(`#${productId}_stock`);
