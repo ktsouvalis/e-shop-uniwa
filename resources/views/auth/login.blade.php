@@ -8,8 +8,8 @@
             @csrf
             <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email" /></div>
             <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password" /></div>
-            <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Log in</button></div>
-            <p class="text-muted"><a href="{{ route('register') }}" class="text-center">Don't have an account? Register</a></p>
+            <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Σύνδεση</button></div>
+            <p class="text-muted"><a href="{{ route('register') }}" class="text-center">Δεν έχετε λογαριασμό; Εγγραφείτε</a></p>
         </form>
     </div>
 </x-layout>

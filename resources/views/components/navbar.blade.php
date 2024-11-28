@@ -15,7 +15,9 @@
                 @endforeach
             </ul>
             @guest
+                @if(Route::is('index'))
                 <a class="nav-link shadow bi bi-door-open-fill" href="{{ route('login') }}"> Σύνδεση</a>
+                @endif
             @else
             <div class="hstack gap-3">
                 <div id="cart-icon">
