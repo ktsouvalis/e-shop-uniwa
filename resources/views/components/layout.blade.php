@@ -14,7 +14,7 @@
         <style>
             body, #mainNav{
                 /* background: linear-gradient(to right, bisque, burlywood, lightcoral); */
-                background: linear-gradient(to right, lightcoral, #feb47b, pink);
+                background: linear-gradient(to right, #feb47b, pink);
             }
         </style>
     </head>
