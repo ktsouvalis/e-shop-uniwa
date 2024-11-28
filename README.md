@@ -54,7 +54,8 @@ This project is an e-shop designed as part of my MSc coursework. The application
 5. Run migrations and seeders
    ```bash
    php artisan migrate --seed
-
+   ```
 6. Start application server
    ```bash
    php artisan serve
+   ```
