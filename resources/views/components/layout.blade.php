@@ -12,15 +12,13 @@
         <meta name="theme-color" content="#ffffff">
         @stack('links')
         <style>
-            body {
-                background-image: url("{{ asset("images/background.jpg") }}");
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-attachment: fixed;
+            body, #mainNav{
+                /* background: linear-gradient(to right, bisque, burlywood, lightcoral); */
+                background: linear-gradient(to right, lightcoral, #feb47b, pink);
             }
         </style>
     </head>
-    <body>  
+    <body >  
     <x-navbar/>
     <x-messages/>
     {{$slot}}
