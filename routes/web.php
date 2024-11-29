@@ -13,13 +13,22 @@ use App\Http\Controllers\OrderController;
 
 Route::get('/', function (Request $request) {
     $categoryId = $request->query('category');
+    $limit = $request->query('limit', 5); // Default to 5 if not provided
+    $page = $request->query('page', 1); // Default to 1 if not provided
+
     if ($categoryId) {
         $category = Category::find($categoryId);
-        $products = $category ? $category->products : collect();
+        $products = $category ? $category->products()->paginate($limit, ['*'], 'page', $page) : collect();
     } else {
-        $products = Product::all();
+        $products = Product::paginate($limit, ['*'], 'page', $page);
     }
-    return view('index')->with('products', $products);
+
+    // Check if the requested page number is valid
+    if ($products->lastPage() < $page) {
+        return redirect()->route('index', ['limit' => $limit, 'page' => $products->lastPage()]);
+    }
+
+    return view('index', ['products' => $products]);
 })->name('index');
 
 Route::get('/register', function () {
@@ -48,7 +57,7 @@ Route::post('/cart/remove-item/{id}', [CartController::class, 'remove_item'])->n
 Route::post('/cart/clear', [CartController::class, 'clear_expired_items'])->name('clear-cart');
 
 Route::get('/checkout', function () {
-    $cart = Auth::user()->cart;
+    $cart = Auth::user()->cart()->firstOrFail();
     return view('checkout')->with('cart', $cart);
 })->middleware('auth')->name('checkout');
 
