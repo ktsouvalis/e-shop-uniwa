@@ -7,7 +7,7 @@
         @if($orders->isEmpty())
             <p>Δεν έχετε παραγγελίες στο ιστορικό σας</p>
         @else
-        <table class="table table-striped">
+        <table class="table table-bordered table-striped table-hover table-dark text-center">
             <thead>
                 <tr>
                     <th scope="col" class="align-middle">Order ID</th>
