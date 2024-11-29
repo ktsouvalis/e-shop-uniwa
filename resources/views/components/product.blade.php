@@ -4,7 +4,6 @@
         background-image: url('{{ asset('images/product-card-body.jpg') }}');
         background-size: cover;
         background-repeat: no-repeat;
-        /* background-attachment: fixed; */
     }
 </style>
 @endpush
@@ -18,11 +17,10 @@
             @if($product->stock > 0)
             @auth
                 <p class="card-text text-success">Διαθέσιμο</p>
-                
-                    <div class="hstack gap-2">
+                <div class="hstack gap-2">
                     <div class="me-2">
-                        <label for="quantity" class="form-label d-none">Ποσότητα:</label>
-                        <input type="number" class="form-control form-control-sm" data-quantity name="quantity" id="quantity" value="1" min="1" style="width: 60px;">
+                        <label  for="q{{$product->id}}" class="form-label d-none">Ποσότητα:</label>
+                        <input type="number" id="q{{$product->id}}" class="form-control form-control-sm" data-quantity name="quantity" id="quantity" value="1" min="1" style="width: 60px;">
                     </div>
                     <button type="submit" data-product-id="{{ $product->id }}" data-add-to-cart-url="{{ route('add_to_cart', ['product' => $product->id]) }}" class="btn btn-primary btn-sm add-to-cart-btn">
                         <i class="bi bi-cart-plus"></i>

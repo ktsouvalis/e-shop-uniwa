@@ -3,7 +3,7 @@
 @endpush
 <x-layout>
     <div class="container mt-5">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-striped table-hover table-dark text-center">
             <thead>
                 <tr>
                     <th>Προϊόν</th>
