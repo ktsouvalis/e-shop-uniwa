@@ -54,8 +54,6 @@ Route::get('/cart', function () {
 Route::post('/cart/update-quantity/{id}', [CartController::class, 'update_quantity'])->name('cart.update_quantity');
 Route::post('/cart/remove-item/{id}', [CartController::class, 'remove_item'])->name('cart.remove_item');
 
-Route::post('/cart/clear', [CartController::class, 'clear_expired_items'])->name('clear-cart');
-
 Route::get('/checkout', function () {
     $cart = Auth::user()->cart()->firstOrFail();
     return view('checkout')->with('cart', $cart);

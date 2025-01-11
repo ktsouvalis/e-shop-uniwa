@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Order;
 use App\Models\Address;
 use App\Models\Product;
@@ -34,19 +35,21 @@ class OrderController extends Controller
         Address::find($validated['address'])->address;
         DB::beginTransaction();
         try{
+            foreach (json_decode($user->cart->items, true) as $item) {
+                $product = Product::find($item['product_id']);
+                $this->decreaseProductStock($product, $item['quantity']);
+            }
             $order = Order::create([
                 'user_id' => auth()->id(),
                 'items' => $user->cart->items,
                 'ship_to' => Address::find($validated['address'])->address,
                 'order_status_id' => 1,
             ]);
-
-
             $user->cart->delete();
             DB::commit();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
-            return redirect()->route('checkout')->with('failure', 'Αποτυχία αποστολής παραγγελίας, δοκιμάστε αργότερα '.$e->getMessage());
+            return redirect()->route('cart')->with('failure', $e->getMessage());
         }
 
         return redirect()->route('index')->with('success', 'Η παραγγελία σας ολοκληρώθηκε με επιτυχία');
@@ -61,5 +64,24 @@ class OrderController extends Controller
     {
         $orders = auth()->user()->orders()->with('orderStatus')->get();
         return view('orders', compact('orders'));
+    }
+
+    /**
+     * Decrease the stock of a product.
+     *
+     * @param \App\Models\Product $product
+     * @param int $quantity
+     * @return void
+     */
+    private function decreaseProductStock(Product $product, $quantity)
+    {
+        $product->stock -= $quantity;
+        if($product->stock < 0){
+            throw new Exception('Το προϊόν δεν είναι διαθέσιμο στην ποσότητα που επιλέξατε');
+        }
+        else{
+            $product->save();
+            return 1;
+        }
     }
 }

@@ -33,7 +33,7 @@
             @csrf
             <button type="submit" class="btn btn-sm btn-danger remove-item-btn bi bi-x-circle" data-bs-toggle="tooltip" title="Αφαίρεση από το καλάθι"></button>
         </form>
-        <x-timer :item="$item" />
+        {{-- <x-timer :item="$item" /> --}}
     </td>
     {{-- <td class="center-elements"></td> --}}
     @endif
