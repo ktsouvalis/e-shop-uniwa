@@ -1,7 +1,7 @@
 <tr>
     <th scope="row" class="align-middle">{{ $order->id }}</th>
     <td>
-        <table class="table table-bordered">
+        <table class="table table-bordered table table-bordered table-striped table-hover table-dark text-center">
             <thead>
                 <tr>
                     <th scope="col">Περιγραφή</th>
