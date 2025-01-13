@@ -1,7 +1,7 @@
 @php
     $categories = App\Models\Category::all();
 @endphp
-<nav id="mainNav" class="navbar navbar-expand-md sticky-top navbar-shrink py-3">
+<nav id="mainNav" class="navbar navbar-expand-md sticky-top navbar-shrink py-3" style="background-color: #ffffff;">
     <div class="container"><a class="navbar-brand d-flex align-items-center bi bi-shop-window h3" href="/"> eShop UniWA</a><button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
         <div id="navcol-1" class="collapse navbar-collapse">
             <ul class="navbar-nav mx-auto">
@@ -35,7 +35,7 @@
                 <a class="nav-link bi {{$icon}}" data-bs-toggle="tooltip" title="Το καλάθι μου" href="{{ url('/cart') }}"> </a>
                 </div>
                 <a class="nav-link bi bi-card-list " data-bs-toggle="tooltip" title="Οι παραγγελίες μου" href="{{ url('/orders') }}"> </a>
-                <strong class="">{{ auth()->user()->name }}</strong>
+                <a class="nav-link bi bi-person" data-bs-toggle="tooltip" title="Λογαριασμός" href="{{ url('/profile') }}"> <strong class="">{{ auth()->user()->name }}</strong>
                 
                 <a class="nav-link bi bi-door-closed-fill " data-bs-toggle="tooltip" title="Αποσύνδεση" href="{{ route('logout') }}"></a>  
             </div>

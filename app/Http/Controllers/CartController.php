@@ -98,7 +98,7 @@ class CartController extends Controller
         // Check if the new quantity exceeds the available stock
         $product = Product::find($productId);
         if ($product->stock < $quantity) {
-            return redirect(route('cart'))->with('failure', 'Το προϊόν δεν υπάρχει σε αρκετή ποσότητα');
+            return redirect(route('cart'))->with('failure', 'Το προϊόν δεν υπάρχει σε αρκετή ποσότητα: ' . $product->stock);
         }
 
         // Save the updated items back to the cart

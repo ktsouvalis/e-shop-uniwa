@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class UserController
@@ -64,5 +65,26 @@ class UserController extends Controller
         $request->session()->invalidate();
 
         return redirect()->route('index')->with('success', 'Αποσυνδεθήκατε');
+    }
+
+    public function change_password(Request $request){
+        $incomingFields = $request->all();
+        $rules = [
+            'new_password' => 'min:6|same:new_password_confirmation',
+            'new_password_confirmation' => 'ame:new_password|min:8'
+        ];
+
+        $validator = Validator::make($incomingFields, $rules);
+
+        if($validator->fails()){
+            return back()
+                ->with('failure',$validator->errors()->first());
+        }
+        $user = Auth::user();
+
+        $user->password = bcrypt($incomingFields['pass1']);
+        $user->save();
+
+        return redirect(url('/index_user'))->with('success', 'Ο νέος σας κωδικός αποθηκεύτηκε επιτυχώς');
     }
 }

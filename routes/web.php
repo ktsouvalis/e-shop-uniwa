@@ -46,6 +46,8 @@ Route::post('/login', [UserController::class, 'login'])->middleware('guest');
 
 Route::get('/logout', [UserController::class, 'logout'])->middleware('auth')->name('logout');
 
+Route::post('/change-password', [UserController::class, 'change_password'])->middleware('auth')->name('change-password');
+
 Route::post('/add_to_cart/{product}', [CartController::class, 'add_to_cart'])->middleware('auth')->name('add_to_cart');
 
 Route::get('/cart', function () {
@@ -67,5 +69,9 @@ Route::get('/orders', function () {
     return view('orders')->with('orders', $orders);
 })->middleware('auth')->name('orders');
 
-Route::post('/address/store', [AddressController::class, 'store'])->name('address.store');
+Route::resource('address', AddressController::class)->middleware('auth');
 
+Route::get('/profile', function(){
+    $user = Auth::user();
+    return view('profile')->with('user', $user);
+})->middleware('auth')->name('profile');

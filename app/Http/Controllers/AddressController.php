@@ -10,13 +10,15 @@ class AddressController extends Controller
 {
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255|unique:addresses,name,NULL,id,user_id,' . Auth::id(),
+        $validation = $request->validate([
+            'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'zip' => 'required|string|max:255',
         ]);
-
+        if(!$validation){
+            return redirect()->back()->with('failure', $validation->errors()->first());
+        }
         $fullAddress = $request->address . ', ' . $request->city . ', ' . $request->zip;
 
         Address::create([
@@ -26,5 +28,38 @@ class AddressController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Address added successfully');
+    }
+
+    public function edit(Address $address)
+    {
+        return view('edit-address', ['address' => $address]);
+    }
+
+    public function update(Request $request, Address $address)
+    {
+        $validation = $request->validate([
+            'name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'zip' => 'required|string|max:255',
+        ]);
+        if(!$validation){
+            return redirect()->back()->with('failure', $validation->errors()->first());
+        }
+        $fullAddress = $request->address . ', ' . $request->city . ', ' . $request->zip;
+
+        $address->update([
+            'name' => $request->name,
+            'address' => $fullAddress,
+        ]);
+
+        return redirect()->route('profile')->with('success', 'Address updated successfully');
+    }
+
+    public function destroy(Address $address)
+    {
+        $address->delete();
+
+        return redirect()->back()->with('success', 'Address deleted successfully');
     }
 }
