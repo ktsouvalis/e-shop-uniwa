@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AddressController;
 
 Route::get('/', function (Request $request) {
     $categoryId = $request->query('category');
@@ -65,4 +66,6 @@ Route::get('/orders', function () {
     $orders = Auth::user()->orders;
     return view('orders')->with('orders', $orders);
 })->middleware('auth')->name('orders');
+
+Route::post('/address/store', [AddressController::class, 'store'])->name('address.store');
 

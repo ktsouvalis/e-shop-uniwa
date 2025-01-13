@@ -31,7 +31,7 @@
                 <label for="address" class="form-label">Select Address</label>
                 <select class="form-control" id="address" name="address">
                     @foreach(auth()->user()->addresses as $address)
-                        <option value="{{ $address->id }}">{{ $address->address }}</option>
+                        <option value="{{ $address->id }}">{{$address->name}}: {{ $address->address }}</option>
                     @endforeach
                 </select>
             </div>
@@ -51,7 +51,16 @@
                 <label for="cvv" class="form-label">CVV</label>
                 <input type="text" class="form-control" id="cvv" name="cvv" placeholder="123" required>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Place Order</button>
+            @if(auth()->user()->addresses->count())
+                <button type="submit" class="btn btn-primary w-100">Place Order</button>
+            @else
+                <p class="text-danger">You need to add an address before you can place an order.</p>
+            @endif
         </form>
+    </div>
+    
+    <div class="container mt-5">
+        <h2 class="mb-4">Add New Address</h2>
+        <x-add-address />
     </div>
 </x-layout>

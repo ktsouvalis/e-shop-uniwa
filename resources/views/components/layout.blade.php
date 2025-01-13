@@ -11,12 +11,12 @@
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="theme-color" content="#ffffff">
         @stack('links')
-        <style>
+        {{-- <style>
             body, #mainNav{
                 /* background: linear-gradient(to right, bisque, burlywood, lightcoral); */
                 background: linear-gradient(to right, #feb47b, pink);
             }
-        </style>
+        </style> --}}
     </head>
     <body >  
     <x-navbar/>

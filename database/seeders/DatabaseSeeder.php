@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(3)->create();
-        Address::factory(6)->create();
+        // Address::factory(6)->create();
         
         Category::create(['id'=>1,'name' => 'Electronics', 'icon'=>'bi bi-lightning']);
         Category::create(['id'=>2,'name' => 'Περιποίηση', 'icon'=>'bi bi-heart']);
