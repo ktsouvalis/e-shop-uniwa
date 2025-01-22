@@ -2,7 +2,7 @@
     @csrf
     <div class="form-group mb-3">
         <label for="name" class="form-label">Ονοματεπώνυμο</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Home" required>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
     </div>
     <div class="form-group mb-3">
         <label for="address" class="form-label">Οδός και Αριθμός</label>

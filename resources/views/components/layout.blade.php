@@ -11,12 +11,6 @@
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="theme-color" content="#ffffff">
         @stack('links')
-        {{-- <style>
-            body, #mainNav{
-                /* background: linear-gradient(to right, bisque, burlywood, lightcoral); */
-                background: linear-gradient(to right, #feb47b, pink);
-            }
-        </style> --}}
     </head>
     <body >  
     <x-navbar/>
@@ -24,7 +18,7 @@
     {{$slot}}
 
     <footer class="border-top text-center small text-muted py-3">
-        <p class="m-0">{{Illuminate\Support\Carbon::now()->year}} <a href="{{url("/")}}" class="text-muted">e-shop</a>. Κωνσταντίνος Τσούβαλης - Ολοκληρωμένα Περιβάλλοντα Υλικού και Λογισμικού στο Διαδίκτυο</p>
+        <p class="m-0">{{Illuminate\Support\Carbon::now()->year}} <a href="{{url("/")}}" class="text-muted">e-shop</a>. Ολοκληρωμένα Περιβάλλοντα Υλικού και Λογισμικού στο Διαδίκτυο</p>
     </footer>
     <script src="{{asset('bootstrap-5.3.3-dist/js/bootstrap.js')}}"></script>
     <script

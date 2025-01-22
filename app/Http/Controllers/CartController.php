@@ -38,7 +38,7 @@ class CartController extends Controller
             if ($item['product_id'] == $productId) {
                 return response()->json([
                     'status' => 'failure',
-                    'message' => 'Το προϊόν υπάρχει ήδη στο καλάθι',
+                    'message' => 'Το προϊόν υπάρχει ήδη. Μπορείτε να ενημερώσετε την ποσότητα του προϊόντος όταν επισκεφθείτε το καλάθι σας.',
                     'new_stock' => $product->stock
                 ]);
             }

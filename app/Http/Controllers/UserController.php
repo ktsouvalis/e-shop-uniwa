@@ -29,7 +29,7 @@ class UserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('index')->with('success', 'Καλως ήρθατε '.Auth::user()->name);
+        return redirect()->route('index')->with('success', 'Καλώς ήρθατε '.Auth::user()->name);
     }
 
     /**
@@ -45,7 +45,7 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->route('index')->with('success', 'Καλως ήρθατε '.Auth::user()->name);
+            return redirect()->route('index')->with('success', 'Καλώς ήρθατε '.Auth::user()->name);
         }
 
         return back()
@@ -71,7 +71,7 @@ class UserController extends Controller
         $incomingFields = $request->all();
         $rules = [
             'new_password' => 'min:6|same:new_password_confirmation',
-            'new_password_confirmation' => 'ame:new_password|min:8'
+            'new_password_confirmation' => 'same:new_password|min:8'
         ];
 
         $validator = Validator::make($incomingFields, $rules);

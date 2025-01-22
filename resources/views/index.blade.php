@@ -11,20 +11,6 @@
         @endif
     </title>
 @endpush
-@push('links')
-    <style>
-        .transparent-select {
-            background-color: transparent;
-            color: inherit; 
-            border: 1px solid #ccc; 
-        }
-
-        .transparent-select option {
-            background-color: #fff; 
-            color: #000;
-        }
-    </style>
-@endpush
 @push('scripts')
 <script>
     $(document).ready(function () {
@@ -51,10 +37,6 @@
                         // Update cart icon with a red badge
                         cartIcon.removeClass('bi-cart text-light').addClass('bi-cart-fill text-danger');
 
-                        //update stock div
-                        const stockDiv = $(`#${productId}_stock`);
-                        const newStock = data.new_stock;
-                        stockDiv.text(`Μόνο ${newStock} απομένουν!`);
                         // Show success alert
                         alert(data.message);
                     } else {
