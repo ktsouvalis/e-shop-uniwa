@@ -72,6 +72,23 @@
                     </select>
                 </div>
             </div>
+            <!-- Πεδίο αναζήτησης -->
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <form action="{{ route('index') }}" method="GET">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="search" placeholder="Αναζήτηση προϊόντων..." value="{{ request()->query('search') }}">
+                            <button class="btn btn-outline-secondary" type="submit">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                        <!-- Preserve other filters -->
+                        @foreach(request()->except('search') as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
+                    </form>
+                </div>
+            </div>
             @foreach($products as $product)
                 <x-product :product="$product" />
             @endforeach

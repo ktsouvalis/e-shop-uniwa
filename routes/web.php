@@ -17,20 +17,38 @@ Route::get('/', function (Request $request) {
     $categoryId = $request->query('category');
     $limit = $request->query('limit', 5); // Προεπιλογή 5 αν δεν παρέχεται
     $page = $request->query('page', 1); // Προεπιλογή 1 αν δεν παρέχεται
+    $search = $request->query('search'); // Get the search query
+
+    $query = Product::query();
 
     if ($categoryId) {
         $category = Category::find($categoryId);
-        $products = $category ? $category->products()->paginate($limit, ['*'], 'page', $page) : collect();
-    } else {
-        $products = Product::paginate($limit, ['*'], 'page', $page);
+        if ($category) {
+            $query = $category->products();
+        }
     }
+
+    if ($search) {
+        $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', '%' . $search . '%')
+              ->orWhere('description', 'like', '%' . $search . '%');
+        });
+    }
+
+    $products = $query->paginate($limit, ['*'], 'page', $page);
 
     // Έλεγχος αν ο ζητούμενος αριθμός σελίδας είναι έγκυρος
     if ($products->lastPage() < $page) {
-        return redirect()->route('index', ['limit' => $limit, 'page' => $products->lastPage()]);
+        return redirect()->route('index', array_merge($request->except('page'), ['page' => $products->lastPage()]));
     }
 
-    return view('index', ['products' => $products]);
+    return view('index', [
+        'products' => $products,
+        'search' => $search,
+        'categoryId' => $categoryId,
+        'limit' => $limit,
+        'page' => $page
+    ]);
 })->name('index');
 
 // Διαδρομή σελίδας εγγραφής
