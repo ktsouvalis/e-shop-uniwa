@@ -7,6 +7,7 @@
         @stack('title')
         {{-- <link rel="stylesheet" href="{{asset('bootstrap-5.3.3-dist/css/bootstrap.css')}}" rel="stylesheet"/> --}}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{{ asset('css/alerts.css') }}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="theme-color" content="#ffffff">
