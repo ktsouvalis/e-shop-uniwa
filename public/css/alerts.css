@@ -1,3 +1,8 @@
+.alert-container {
+    margin-top: 70px; /* Adjust this value to ensure the alerts are below the navbar */
+    padding: 0 20px;
+}
+
 .alert {
     padding: 15px;
     margin-bottom: 20px;
