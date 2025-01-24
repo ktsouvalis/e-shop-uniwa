@@ -1,20 +1,20 @@
 <form action="{{ route('address.store') }}" method="POST">
     @csrf
-    <div class="form-group mb-3">
-        <label for="name" class="form-label">Ονοματεπώνυμο</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+    <div >
+        <label for="name" >Ονοματεπώνυμο</label>
+        <input type="text" id="name" name="name" placeholder="Το όνομά σας" required>
     </div>
-    <div class="form-group mb-3">
-        <label for="address" class="form-label">Οδός και Αριθμός</label>
-        <input type="text" class="form-control" id="address" name="address" placeholder="123 Main St" required>
+    <div >
+        <label for="address" >Οδός και Αριθμός</label>
+        <input type="text" id="address" name="address" placeholder="Αραχώβης 15" required>
     </div>
-    <div class="form-group mb-3">
-        <label for="city" class="form-label">Πόλη</label>
-        <input type="text" class="form-control" id="city" name="city" placeholder="Athens" required>
+    <div >
+        <label for="city" >Πόλη</label>
+        <input type="text" id="city" name="city" placeholder="Αθήνα" required>
     </div>
-    <div class="form-group mb-3">
-        <label for="zip" class="form-label">Τ.Κ.</label>
-        <input type="text" class="form-control" id="zip" name="zip" placeholder="12345" required>
+    <div >
+        <label for="zip" >Τ.Κ.</label>
+        <input type="text" id="zip" name="zip" placeholder="12345" required>
     </div>
-    <button type="submit" class="btn btn-primary w-100">Add Address</button>
+    <button type="submit">Add Address</button>
 </form>

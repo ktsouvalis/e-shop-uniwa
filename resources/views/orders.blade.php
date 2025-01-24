@@ -2,20 +2,20 @@
     <title>Ιστορικό Παραγγελιών</title>
 @endpush
 <x-layout>
-    <div class="container mt-5">
+    <div >
         <h2>Ιστορικό Παραγγελιών</h2>
         @if($orders->isEmpty())
             <p>Δεν έχετε παραγγελίες στο ιστορικό σας</p>
         @else
-        <table class="table table-bordered table-striped table-hover table-dark text-center">
+        <table>
             <thead>
                 <tr>
-                    <th scope="col" class="align-middle">Order ID</th>
-                    <th scope="col">Items</th>
-                    <th scope="col" class="align-middle">Total</th>
-                    <th scope="col" class="align-middle">Ship To</th>
-                    <th scope="col" class="align-middle">Status</th>
-                    <th scope="col" class="align-middle">Order Date</th>
+                    <th>Order ID</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Ship To</th>
+                    <th>Status</th>
+                    <th>Order Date</th>
                 </tr>
             </thead>
             <tbody>

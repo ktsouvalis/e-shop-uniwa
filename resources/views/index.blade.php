@@ -60,12 +60,12 @@
 </script>
 @endpush
 <x-layout>
-    <div class="container mt-4 my-3">
-        <div class="row gy-4">
-            <div class="row">
+    <div>
+        <div>
+            <div>
                 <label for="number_of_products_per_page">Προϊόντα ανά σελίδα</label>
-                <div class="col-md-1" >
-                    <select class="form-select transparent-select" id="number_of_products_per_page" name="number_of_products_per_page">
+                <div>
+                    <select id="number_of_products_per_page" name="number_of_products_per_page">
                         <option value="5" {{ request()->query('limit') == 5 ? 'selected' : '' }}>5</option>
                         <option value="10" {{ request()->query('limit') == 10 ? 'selected' : '' }}>10</option>
                         <option value="20" {{ request()->query('limit') == 20 ? 'selected' : '' }}>20</option>
@@ -73,12 +73,12 @@
                 </div>
             </div>
             <!-- Πεδίο αναζήτησης -->
-            <div class="row mt-3">
-                <div class="col-md-4">
+            <div>
+                <div>
                     <form action="{{ route('index') }}" method="GET">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="search" placeholder="Αναζήτηση προϊόντων..." value="{{ request()->query('search') }}">
-                            <button class="btn btn-outline-secondary" type="submit">
+                        <div>
+                            <input type="text" name="search" placeholder="Αναζήτηση προϊόντων..." value="{{ request()->query('search') }}">
+                            <button type="submit">
                                 <i class="bi bi-search"></i>
                             </button>
                         </div>

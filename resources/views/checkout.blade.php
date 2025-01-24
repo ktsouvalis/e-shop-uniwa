@@ -2,8 +2,8 @@
     <title>Checkout</title>
 @endpush
 <x-layout>
-    <div class="container mt-5">
-        <table class="table table-bordered table-striped table-hover table-dark text-center">
+    <div>
+        <table>
             <thead>
                 <tr>
                     <th>Προϊόν</th>
@@ -23,44 +23,44 @@
             <strong>Συνολικό Ποσό: {{ $cart->contents()->sum(fn($item) => $item->price * $item->quantity) }} €</strong>
         </div>
     </div>
-    <div class="container mt-5">
-        <h2 class="mb-4">Checkout</h2>
+    <div>
+        <h2>Checkout</h2>
         <form action="{{ route('order.store') }}" method="POST">
             @csrf
-            <div class="form-group mb-3">
+            <div>
                 <label for="address" class="form-label">Select Address</label>
-                <select class="form-control" id="address" name="address">
+                <select id="address" name="address">
                     @foreach(auth()->user()->addresses as $address)
                         <option value="{{ $address->id }}">{{$address->name}}: {{ $address->address }}</option>
                     @endforeach
                 </select>
             </div>
-            <div class="form-group mb-3">
-                <label for="cardNumber" class="form-label">Credit Card Number</label>
-                <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
+            <div>
+                <label for="cardNumber" class="form-label">Αριθμός Κάρτας</label>
+                <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
             </div>
-            <div class="form-group mb-3">
-                <label for="cardName" class="form-label">Name on Card</label>
-                <input type="text" class="form-control" id="cardName" name="cardName" placeholder="John Doe" required>
+            <div>
+                <label for="cardName" class="form-label">Όνομα κατόχου</label>
+                <input type="text" id="cardName" name="cardName" placeholder="John Doe" required>
             </div>
-            <div class="form-group mb-3">
-                <label for="expiryDate" class="form-label">Expiry Date</label>
-                <input type="text" class="form-control" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
+            <div>
+                <label for="expiryDate" class="form-label">Ημερομηνία Λήξης</label>
+                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
             </div>
-            <div class="form-group mb-4">
+            <div>
                 <label for="cvv" class="form-label">CVV</label>
-                <input type="text" class="form-control" id="cvv" name="cvv" placeholder="123" required>
+                <input type="text" id="cvv" name="cvv" placeholder="123" required>
             </div>
             @if(auth()->user()->addresses->count())
-                <button type="submit" class="btn btn-primary w-100">Place Order</button>
+                <button type="submit" class="btn btn-primary w-100">Υποβολή παραγγελίας</button>
             @else
-                <p class="text-danger">You need to add an address before you can place an order.</p>
+                <p>Πρέπει να καταχωρίσετε μια διεύθυνση πριν υποβάλλετε παραγγελίες</p>
             @endif
         </form>
     </div>
     
-    <div class="container mt-5">
-        <h2 class="mb-4">Add New Address</h2>
+    <div>
+        <h2>Προσθήκη Νέας Διεύθυνσης</h2>
         <x-add-address />
     </div>
 </x-layout>

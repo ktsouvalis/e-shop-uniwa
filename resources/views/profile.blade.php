@@ -2,40 +2,40 @@
     <title>Το Προφίλ Μου</title>
 @endpush
 <x-layout>
-    <div class="container">
-        <div class="change-password">
-            <h2>Change Password</h2>
+    <div>
+        <div>
+            <h2>Αλλαγή συνθηματικού</h2>
             <form action="{{route('change-password')}}" method="POST">
                 @csrf
-                <div class="form-group mb-2">
+                <div>
                     <label for="new_password">Νέος Κωδικός</label>
                     <input type="password" id="new_password" name="new_password" class="form-control" required>
                 </div>
-                <div class="form-group mb-2">
+                <div>
                     <label for="new_password_confirmation">Επαλήθευση κωδικού</label>
                     <input type="password" id="new_password_confirmation" name="new_password_confirmation" class="form-control" required>
                 </div>
-                <button type="submit" class="btn btn-primary bi bi-key"> Αλλαγή Κωδικού</button>
+                <button type="submit" class="bi bi-key"> Αλλαγή Κωδικού</button>
             </form>
         </div>
         <hr>
 
-        <div class="addresses">
-            <h2>Addresses</h2>
-            <div class="row">
+        <div>
+            <h2>Διευθύνσεις</h2>
+            <div>
                 @foreach(auth()->user()->addresses as $address)
-                    <div class="col-md-4">
-                        <div class="card mb-3">
-                            <div class="card-body">
+                    <div>
+                        <div>
+                            <div>
                                 <h3>{{ $address->name }}</h3>
-                                <p class="card-text">{{ $address->address }}</p>
-                                <div class="hstack gap-2">
+                                <p>{{ $address->address }}</p>
+                                <div>
                                 <form action="{{ route('address.destroy', $address) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger bi bi-x-circle"></button>
+                                    <button type="submit" class="bi bi-x-circle"></button>
                                 </form>
-                                <a href="{{ route('address.edit', $address) }}" class="btn btn-primary bi bi-pencil-square"></a>
+                                <a href="{{ route('address.edit', $address) }}" class="bi bi-pencil-square"></a>
                                 </div>
                             </div>
                         </div>
@@ -44,6 +44,5 @@
             </div>
         </div>
         <hr>
-
         <x-add-address />
 </x-layout>
