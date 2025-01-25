@@ -1,7 +1,7 @@
 <tr>
     <th>{{ $order->id }}</th>
     <td>
-        <table class="table table-bordered table table-bordered table-striped table-hover table-dark text-center">
+        <table class="order-items-table">
             <thead>
                 <tr>
                     <th>Περιγραφή</th>

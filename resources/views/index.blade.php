@@ -11,6 +11,7 @@
         @endif
     </title>
 @endpush
+
 @push('scripts')
 <script>
     $(document).ready(function () {
@@ -37,6 +38,10 @@
                         // Update cart icon with a red badge
                         cartIcon.removeClass('bi-cart text-light').addClass('bi-cart-fill text-danger');
 
+                        //update stock div
+                        const stockDiv = $(`#${productId}_stock`);
+                        const newStock = data.new_stock;
+                        stockDiv.text(`Μόνο ${newStock} απομένουν!`);
                         // Show success alert
                         alert(data.message);
                     } else {
@@ -60,33 +65,16 @@
 </script>
 @endpush
 <x-layout>
-    <div>
-        <div>
-            <div>
+    <div class="container mt-4 my-3">
+        <div class="row gy-4">
+            <div class="row">
                 <label for="number_of_products_per_page">Προϊόντα ανά σελίδα</label>
-                <div>
-                    <select id="number_of_products_per_page" name="number_of_products_per_page">
+                <div class="col-md-1" >
+                    <select class="form-select transparent-select" id="number_of_products_per_page" name="number_of_products_per_page">
                         <option value="5" {{ request()->query('limit') == 5 ? 'selected' : '' }}>5</option>
                         <option value="10" {{ request()->query('limit') == 10 ? 'selected' : '' }}>10</option>
                         <option value="20" {{ request()->query('limit') == 20 ? 'selected' : '' }}>20</option>
                     </select>
-                </div>
-            </div>
-            <!-- Πεδίο αναζήτησης -->
-            <div>
-                <div>
-                    <form action="{{ route('index') }}" method="GET">
-                        <div>
-                            <input type="text" name="search" placeholder="Αναζήτηση προϊόντων..." value="{{ request()->query('search') }}">
-                            <button type="submit">
-                                <i class="bi bi-search"></i>
-                            </button>
-                        </div>
-                        <!-- Preserve other filters -->
-                        @foreach(request()->except('search') as $key => $value)
-                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-                        @endforeach
-                    </form>
                 </div>
             </div>
             @foreach($products as $product)
