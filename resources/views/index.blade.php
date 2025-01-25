@@ -11,20 +11,6 @@
         @endif
     </title>
 @endpush
-@push('links')
-    <style>
-        .transparent-select {
-            background-color: transparent;
-            color: inherit; 
-            border: 1px solid #ccc; 
-        }
-
-        .transparent-select option {
-            background-color: #fff; 
-            color: #000;
-        }
-    </style>
-@endpush
 @push('scripts')
 <script>
     $(document).ready(function () {
@@ -51,10 +37,6 @@
                         // Update cart icon with a red badge
                         cartIcon.removeClass('bi-cart text-light').addClass('bi-cart-fill text-danger');
 
-                        //update stock div
-                        const stockDiv = $(`#${productId}_stock`);
-                        const newStock = data.new_stock;
-                        stockDiv.text(`Μόνο ${newStock} απομένουν!`);
                         // Show success alert
                         alert(data.message);
                     } else {
@@ -88,6 +70,23 @@
                         <option value="10" {{ request()->query('limit') == 10 ? 'selected' : '' }}>10</option>
                         <option value="20" {{ request()->query('limit') == 20 ? 'selected' : '' }}>20</option>
                     </select>
+                </div>
+            </div>
+            <!-- Πεδίο αναζήτησης -->
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <form action="{{ route('index') }}" method="GET">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="search" placeholder="Αναζήτηση προϊόντων..." value="{{ request()->query('search') }}">
+                            <button class="btn btn-outline-secondary" type="submit">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                        <!-- Preserve other filters -->
+                        @foreach(request()->except('search') as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
+                    </form>
                 </div>
             </div>
             @foreach($products as $product)
