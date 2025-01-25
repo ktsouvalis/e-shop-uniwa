@@ -1,6 +1,3 @@
-@push('links')
-    <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
-@endpush
 <tr>
     <td>{{ $item->name }}</td>
     <td>{{ $item->quantity }}</td>

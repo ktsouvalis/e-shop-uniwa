@@ -12,7 +12,7 @@
         @if($cart && $cart->contents()->isEmpty())
             <p>Το καλάθι σας είναι άδειο.</p>
         @elseif($cart)
-            <table>
+            <table class="cart-table">
                 <thead>
                     <tr>
                         <th>Προϊόν</th>
@@ -31,7 +31,15 @@
             <div>
                 <strong>Συνολικό Ποσό: {{ $cart->contents()->sum(fn($item) => $item->price * $item->quantity) }} €</strong>
             </div>
-            <a href="{{ route('checkout') }}" class="btn btn-primary mb-3">Ολοκλήρωση Αγοράς</a>
+            <a  href="{{ route('checkout') }}" 
+                style=" display: inline-block; 
+                        padding: 10px 20px; 
+                        background-color: #007bff; 
+                        color: white; 
+                        text-align: center; 
+                        border-radius: 5px; 
+                        text-decoration: none;">Ολοκλήρωση Αγοράς
+            </a>
         @else
             <p>Το καλάθι σας είναι άδειο.</p>
         @endif
