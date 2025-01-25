@@ -1,13 +1,13 @@
 <tr>
-    <th scope="row" class="align-middle">{{ $order->id }}</th>
+    <th>{{ $order->id }}</th>
     <td>
-        <table class="table table-bordered table table-bordered table-striped table-hover table-dark text-center">
+        <table class="order-items-table">
             <thead>
                 <tr>
-                    <th scope="col">Περιγραφή</th>
-                    <th scope="col">Ποσότητα</th>
-                    <th scope="col">Τιμή Μονάδας</th>
-                    <th scope="col">Σύνολο</th>
+                    <th>Περιγραφή</th>
+                    <th>Ποσότητα</th>
+                    <th>Τιμή Μονάδας</th>
+                    <th>Σύνολο</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,15 +17,15 @@
             </tbody>
         </table>
     </td>
-    <td class="align-middle">{{ $order->total() }}</td>
-    <td class="align-middle">{{ $order->ship_to }}</td>
-    <td class="align-middle">
+    <td>{{ $order->total() }}</td>
+    <td>{{ $order->ship_to }}</td>
+    <td>
         @if($order->status->name == 'Processing')
-            <i class="bi bi-hourglass-split text-warning"></i> {{ $order->status->name }}
+            <i class="bi bi-hourglass-split"></i> {{ $order->status->name }}
         @elseif($order->status->name == 'Shipped')
-            <i class="bi bi-truck text-info"></i> {{ $order->status->name }}
+            <i class="bi bi-truck"></i> {{ $order->status->name }}
         @elseif($order->status->name == 'Canceled')
-            <i class="bi bi-x-circle text-danger"></i> {{ $order->status->name }}
+            <i class="bi bi-x-circle"></i> {{ $order->status->name }}
         @endif   
     </td>
     <td class="align-middle">{{ $order->created_at->format('d/m/Y') }}</td>

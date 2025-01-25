@@ -1,23 +1,19 @@
-@if (session()->has('success'))
-    <div class='container container-narrow'>
-        <div class='alert alert-success text-center'>
-        {{session('success')}}
+<div class="alert-container">
+    @if (session()->has('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
-    </div>
-@endif
+    @endif
 
-@if(session()->has('failure'))
-    <div class='container container-narrow'>
-    <div class='alert alert-danger text-center'>
-        {{session('failure')}}
-    </div>
-    </div>
- @endif
-    
- @if(session()->has('warning'))
-    <div class='container container-narrow'>
-    <div class='alert alert-warning text-center'>
-        {{session('warning')}}
-    </div>
-    </div>
- @endif 
+    @if(session()->has('failure'))
+        <div class="alert alert-danger">
+            {{ session('failure') }}
+        </div>
+    @endif
+
+    @if(session()->has('warning'))
+        <div class="alert alert-warning">
+            {{ session('warning') }}
+        </div>
+    @endif
+</div>

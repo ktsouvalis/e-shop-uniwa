@@ -11,6 +11,9 @@
         @endif
     </title>
 @endpush
+@push('links')
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+@endpush
 @push('scripts')
 <script>
     $(document).ready(function () {
@@ -36,7 +39,6 @@
                     if (data.status === 'success') {
                         // Update cart icon with a red badge
                         cartIcon.removeClass('bi-cart text-light').addClass('bi-cart-fill text-danger');
-
                         // Show success alert
                         alert(data.message);
                     } else {
@@ -64,20 +66,19 @@
         <div class="row gy-4">
             <div class="row">
                 <label for="number_of_products_per_page">Προϊόντα ανά σελίδα</label>
-                <div class="col-md-1" >
-                    <select class="form-select transparent-select" id="number_of_products_per_page" name="number_of_products_per_page">
+                <div>
+                    <select class="transparent-select" id="number_of_products_per_page" name="number_of_products_per_page">
                         <option value="5" {{ request()->query('limit') == 5 ? 'selected' : '' }}>5</option>
                         <option value="10" {{ request()->query('limit') == 10 ? 'selected' : '' }}>10</option>
                         <option value="20" {{ request()->query('limit') == 20 ? 'selected' : '' }}>20</option>
                     </select>
                 </div>
             </div>
-            <!-- Πεδίο αναζήτησης -->
-            <div class="row mt-3">
-                <div class="col-md-4">
-                    <form action="{{ route('index') }}" method="GET">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="search" placeholder="Αναζήτηση προϊόντων..." value="{{ request()->query('search') }}">
+            <div >
+                <div class="search-container">
+                    <form action="{{ route('index') }}" class="search-form" method="GET">
+                        <div>
+                            <input type="text" name="search" placeholder="Αναζήτηση προϊόντων..." value="{{ request()->query('search') }}">
                             <button class="btn btn-outline-secondary" type="submit">
                                 <i class="bi bi-search"></i>
                             </button>
@@ -89,10 +90,14 @@
                     </form>
                 </div>
             </div>
+            <div class="product-container">
             @foreach($products as $product)
                 <x-product :product="$product" />
             @endforeach
+            </div> 
         </div>
+        <div class="pagination-container">
         {{ $products->links() }}
+        </div>
     </div>
 </x-layout>

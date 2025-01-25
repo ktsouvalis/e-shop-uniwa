@@ -2,48 +2,91 @@
     <title>Το Προφίλ Μου</title>
 @endpush
 <x-layout>
-    <div class="container">
-        <div class="change-password">
-            <h2>Change Password</h2>
-            <form action="{{route('change-password')}}" method="POST">
+    <style>
+        .address-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            width: calc(33% - 20px);
+            box-sizing: border-box;
+        }
+        .addresses-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .address-container h3 {
+            margin: 0;
+        }
+        .address-container p {
+            margin: 5px 0;
+        }
+        .address-container button, .address-container a {
+            margin-left: 5px;
+            margin-bottom: 8px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .address-container button {
+            background-color: #dc3545;
+            color: white;
+        }
+        .address-container a {
+            background-color: #007bff;
+            color: white;
+        }
+        .address-container button:hover {
+            background-color: #c82333;
+        }
+        .address-container a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <div>
+        <div class="action-container">
+            <h2>Αλλαγή συνθηματικού</h2>
+            <form class="action-form" action="{{route('change-password')}}" method="POST">
                 @csrf
-                <div class="form-group mb-2">
+                <div>
                     <label for="new_password">Νέος Κωδικός</label>
                     <input type="password" id="new_password" name="new_password" class="form-control" required>
                 </div>
-                <div class="form-group mb-2">
+                <div>
                     <label for="new_password_confirmation">Επαλήθευση κωδικού</label>
                     <input type="password" id="new_password_confirmation" name="new_password_confirmation" class="form-control" required>
                 </div>
-                <button type="submit" class="btn btn-primary bi bi-key"> Αλλαγή Κωδικού</button>
+                <button type="submit" class="bi bi-key"> Αλλαγή Κωδικού</button>
             </form>
         </div>
         <hr>
-
-        <div class="addresses">
-            <h2>Addresses</h2>
-            <div class="row">
+        <div>
+            <h2>Διευθύνσεις</h2>
+            <div class="addresses-wrapper">
                 @foreach(auth()->user()->addresses as $address)
-                    <div class="col-md-4">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h3>{{ $address->name }}</h3>
-                                <p class="card-text">{{ $address->address }}</p>
-                                <div class="hstack gap-2">
-                                <form action="{{ route('address.destroy', $address) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger bi bi-x-circle"></button>
-                                </form>
-                                <a href="{{ route('address.edit', $address) }}" class="btn btn-primary bi bi-pencil-square"></a>
-                                </div>
-                            </div>
+                    <div class="address-container">
+                        <div>
+                            <h3>{{ $address->name }}</h3>
+                            <p>{{ $address->address }}</p>
+                        </div>
+                        <div>
+                            <form action="{{ route('address.destroy', $address) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bi bi-x-circle"></button>
+                            </form>
+                            <a href="{{ route('address.edit', $address) }}" class="bi bi-pencil-square"></a>
                         </div>
                     </div>
                 @endforeach
             </div>
         </div>
         <hr>
-
         <x-add-address />
 </x-layout>
