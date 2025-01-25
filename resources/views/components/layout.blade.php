@@ -20,8 +20,9 @@
     <x-navbar/>
     <x-messages/>
     {{$slot}}
-    <hr>
+    {{-- <hr> --}}
     <footer >
+        <hr>
         <p>{{Illuminate\Support\Carbon::now()->year}} <a href="{{url("/")}}" class="text-muted">e-shop</a>. Ολοκληρωμένα Περιβάλλοντα Υλικού και Λογισμικού στο Διαδίκτυο</p>
     </footer>
     <script src="{{asset('bootstrap-5.3.3-dist/js/bootstrap.js')}}"></script>
@@ -31,7 +32,7 @@
         crossorigin="anonymous">
     </script>
     @stack('scripts')
-    </div> <!-- container closing -->
+    {{-- </div> <!-- container closing -->
         <div ><p style="color:black"> {{env('APP_NAME')}}</p></div>
-    </body>
+    </body> --}}
 </html>
