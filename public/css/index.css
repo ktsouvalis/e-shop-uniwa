@@ -1,21 +1,21 @@
 .transparent-select {
     appearance: none; /* Remove default styling */
-    background-color: transparent; /* Make background transparent */
-    border: 1px solid #ccc; /* Add a border */
-    padding: 10px; /* Add padding */
-    font-size: 1rem; /* Set font size */
-    border-radius: 5px; /* Add border radius */
-    color: #333; /* Set text color */
+    background-color: transparent;
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    font-size: 1rem; 
+    border-radius: 5px; 
+    color: #333; 
     outline: none; /* Remove outline */
-    cursor: pointer; /* Change cursor to pointer */
-    width: 100%; /* Set width to 100% */
-    max-width: 200px; /* Set max width */
+    cursor: pointer; 
+    width: 100%; 
+    max-width: 200px;
     margin-bottom:3px;
 }
 
 .transparent-select:focus {
-    border-color: #007bff; /* Change border color on focus */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add box shadow on focus */
+    border-color: #007bff; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .search-container {

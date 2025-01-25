@@ -1,14 +1,14 @@
 .product-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start; /* Align items to the left */
+    justify-content: flex-start;
     gap: 20px;
 }
 
 .product-col {
-    flex: 1 1 calc(25% - 20px); /* Adjust the width and spacing */
+    flex: 1 1 calc(25% - 20px);
     box-sizing: border-box;
-    max-width: calc(25% - 20px); /* Ensure the columns don't exceed the container width */
+    max-width: calc(25% - 20px);
 }
 
 .product-card {
