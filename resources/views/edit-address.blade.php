@@ -1,10 +1,10 @@
 <x-layout>
-<div class="container">
+<div class="action-container">
     <h2>Edit Address</h2>
     @php
         $parts = explode(', ', $address->address);
     @endphp
-    <form action="{{ route('address.update', $address->id) }}" method="POST">
+    <form class="action-form" action="{{ route('address.update', $address->id) }}" method="POST">
         @csrf
         @method('PUT')
         
@@ -30,7 +30,20 @@
 
         <button type="submit" class="bi bi-floppy"> Αποθήκευση</button>
     </form>
-    <a href="{{ route('address.edit', $address) }}" class="bi bi-arrow-counterclockwise">Αναίρεση</a>
-    <a href="{{ route('profile') }}" class="bi bi-backspace"> Επιστροφή</a>
+    
 </div>
+    <a href="{{ route('address.edit', $address) }}" style=" display: inline-block; 
+    padding: 10px 20px; 
+    background-color: #ffc107; 
+    text-align: center; 
+    border-radius: 5px; 
+    text-decoration: none;" class="bi bi-arrow-counterclockwise">Αναίρεση</a>
+
+    <a href="{{ route('profile') }}" style=" display: inline-block; 
+    padding: 10px 20px; 
+    background-color: #dc3545; 
+    color: white; 
+    text-align: center; 
+    border-radius: 5px; 
+    text-decoration: none;" class="bi bi-backspace"> Επιστροφή</a>
 </x-layout>
