@@ -11,7 +11,9 @@
         @endif
     </title>
 @endpush
-
+@push('links')
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+@endpush
 @push('scripts')
 <script>
     $(document).ready(function () {
@@ -37,11 +39,6 @@
                     if (data.status === 'success') {
                         // Update cart icon with a red badge
                         cartIcon.removeClass('bi-cart text-light').addClass('bi-cart-fill text-danger');
-
-                        //update stock div
-                        const stockDiv = $(`#${productId}_stock`);
-                        const newStock = data.new_stock;
-                        stockDiv.text(`Μόνο ${newStock} απομένουν!`);
                         // Show success alert
                         alert(data.message);
                     } else {
@@ -69,12 +66,28 @@
         <div class="row gy-4">
             <div class="row">
                 <label for="number_of_products_per_page">Προϊόντα ανά σελίδα</label>
-                <div class="col-md-1" >
-                    <select class="form-select transparent-select" id="number_of_products_per_page" name="number_of_products_per_page">
+                <div>
+                    <select class="transparent-select" id="number_of_products_per_page" name="number_of_products_per_page">
                         <option value="5" {{ request()->query('limit') == 5 ? 'selected' : '' }}>5</option>
                         <option value="10" {{ request()->query('limit') == 10 ? 'selected' : '' }}>10</option>
                         <option value="20" {{ request()->query('limit') == 20 ? 'selected' : '' }}>20</option>
                     </select>
+                </div>
+            </div>
+            <div >
+                <div class="search-container">
+                    <form action="{{ route('index') }}" class="search-form" method="GET">
+                        <div>
+                            <input type="text" name="search" placeholder="Αναζήτηση προϊόντων..." value="{{ request()->query('search') }}">
+                            <button class="btn btn-outline-secondary" type="submit">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                        <!-- Preserve other filters -->
+                        @foreach(request()->except('search') as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
+                    </form>
                 </div>
             </div>
             <div class="product-container">
@@ -83,6 +96,8 @@
             @endforeach
             </div> 
         </div>
+        <div class="pagination-container">
         {{ $products->links() }}
+        </div>
     </div>
 </x-layout>
