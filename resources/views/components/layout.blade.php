@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="{{ asset('css/alerts.css') }}">
         <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
         <link rel="stylesheet" href="{{ asset('css/forms.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="theme-color" content="#ffffff">
@@ -19,7 +20,7 @@
     <x-navbar/>
     <x-messages/>
     {{$slot}}
-
+    <hr>
     <footer >
         <p>{{Illuminate\Support\Carbon::now()->year}} <a href="{{url("/")}}" class="text-muted">e-shop</a>. Ολοκληρωμένα Περιβάλλοντα Υλικού και Λογισμικού στο Διαδίκτυο</p>
     </footer>
