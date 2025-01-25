@@ -4,7 +4,9 @@
 @push('title')
     <title>Το Καλάθι Μου</title>
 @endpush
-
+@push('links')
+    <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
+@endpush
 <x-layout>
     <div class="container mt-4">
         <h2>Το Καλάθι Μου</h2>

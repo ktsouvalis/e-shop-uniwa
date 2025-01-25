@@ -1,6 +1,9 @@
 @push('title')
     <title>Checkout</title>
 @endpush
+@push('links')
+    <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
+@endpush
 <x-layout>
         <div class="cart-summary">
             <table class="cart-table">

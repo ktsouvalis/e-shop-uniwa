@@ -1,0 +1,90 @@
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Align items to the left */
+    gap: 20px;
+}
+
+.product-col {
+    flex: 1 1 calc(25% - 20px); /* Adjust the width and spacing */
+    box-sizing: border-box;
+    max-width: calc(25% - 20px); /* Ensure the columns don't exceed the container width */
+}
+
+.product-card {
+    height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.product-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.product-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.product-description {
+    font-size: 1rem;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.product-available {
+    color: green;
+}
+
+.quantity-input {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.quantity-input input {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.add-to-cart-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.add-to-cart-btn i {
+    margin-right: 5px;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #0056b3;
+}
+
+.product-out-of-stock {
+    color: red;
+}
+
+.hstack {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}

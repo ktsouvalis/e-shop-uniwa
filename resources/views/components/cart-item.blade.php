@@ -9,9 +9,7 @@
         <form action="{{route('cart.update_quantity', ['id'=>$item->id])}}" method="post">
             @csrf
             <div>
-                <button type="button" onclick="this.nextElementSibling.stepDown()">-</button>
                 <input type="number" name="quantity" value="{{ $item->quantity }}" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null">
-                <button type="button" onclick="this.previousElementSibling.stepUp()">+</button>
                 <button type="submit" class="bi bi-arrow-repeat" data-bs-toggle="tooltip" title="Ενημέρωση Ποσότητας"></button>
             </div>
         </form>

@@ -41,7 +41,7 @@ td.cart-item-container form {
     color: #007bff;
     cursor: pointer;
     font-size: 1.2rem;
-    margin-left: 5px;
+    /* margin-left: 5px; */
 }
 
 .bi-x-circle {
@@ -58,7 +58,7 @@ td.cart-item-container form {
 }
 
 .cart-table {
-    width: 100%;
+    width: 70%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }

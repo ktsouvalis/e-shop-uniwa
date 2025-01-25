@@ -77,9 +77,11 @@
                     </select>
                 </div>
             </div>
+            <div class="product-container">
             @foreach($products as $product)
                 <x-product :product="$product" />
             @endforeach
+            </div> 
         </div>
         {{ $products->links() }}
     </div>
