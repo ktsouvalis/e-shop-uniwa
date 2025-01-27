@@ -1,6 +1,4 @@
-@push('links')
-    <link rel="stylesheet" href="{{ asset('css/forms.css') }}">
-@endpush
+<!-- Component προσθήκης διεύθυνσης -->
 <div class="action-container">
     <h2>Προσθήκη Διεύθυνσης</h2>
     <form action="{{ route('address.store') }}" method="POST" class="action-form">

@@ -24,6 +24,7 @@
     <footer >
         <hr>
         <p>{{Illuminate\Support\Carbon::now()->year}} <a href="{{url("/")}}" class="text-muted">e-shop</a>. Ολοκληρωμένα Περιβάλλοντα Υλικού και Λογισμικού στο Διαδίκτυο</p>
+        <hr>
     </footer>
     <script src="{{asset('bootstrap-5.3.3-dist/js/bootstrap.js')}}"></script>
     <script

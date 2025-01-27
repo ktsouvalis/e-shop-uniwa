@@ -52,17 +52,13 @@ Route::get('/', function (Request $request) {
 })->name('index');
 
 // Διαδρομή σελίδας εγγραφής
-Route::get('/register', function () {
-    return view('auth.register');
-})->middleware('guest')->name('register');
+Route::view('/register', 'auth.register')->middleware('guest')->name('register');
 
 // Διαχείριση υποβολής φόρμας εγγραφής
 Route::post('/register', [UserController::class, 'register'])->middleware('guest');
 
 // Διαδρομή σελίδας σύνδεσης
-Route::get('/login', function () {
-    return view('auth.login');
-})->middleware('guest')->name('login');
+Route::view('/login','auth.login')->middleware('guest')->name('login');
 
 // Διαχείριση υποβολής φόρμας σύνδεσης
 Route::post('/login', [UserController::class, 'login'])->middleware('guest');
@@ -77,9 +73,7 @@ Route::post('/change-password', [UserController::class, 'change_password'])->mid
 Route::post('/add_to_cart/{product}', [CartController::class, 'add_to_cart'])->middleware('auth')->name('add_to_cart');
 
 // Διαδρομή σελίδας καλαθιού
-Route::get('/cart', function () {
-    return view('cart');
-})->middleware('auth')->name('cart');
+Route::view('/cart', 'cart')->middleware('auth')->name('cart');
 
 // Διαδρομή ενημέρωσης ποσότητας προϊόντος στο καλάθι
 Route::post('/cart/update-quantity/{id}', [CartController::class, 'update_quantity'])->name('cart.update_quantity');
