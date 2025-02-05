@@ -27,7 +27,7 @@ class AddressController extends Controller
             'address' => $fullAddress,
         ]);
 
-        return redirect()->back()->with('success', 'Address added successfully');
+        return redirect()->back()->with('success', 'Η διεύθυνση προστέθηκε!');
     }
 
     public function edit(Address $address)
@@ -53,13 +53,13 @@ class AddressController extends Controller
             'address' => $fullAddress,
         ]);
 
-        return redirect()->route('profile')->with('success', 'Address updated successfully');
+        return redirect()->route('profile')->with('success', 'Η διεύθυνση ενημερώθηκε!');
     }
 
     public function destroy(Address $address)
     {
         $address->delete();
 
-        return redirect()->back()->with('success', 'Address deleted successfully');
+        return redirect()->back()->with('success', 'Η διεύθυνση διαγράφτηκε!');
     }
 }
