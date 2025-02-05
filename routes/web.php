@@ -69,6 +69,10 @@ Route::get('/logout', [UserController::class, 'logout'])->middleware('auth')->na
 // Διαδρομή αλλαγής κωδικού πρόσβασης
 Route::post('/change-password', [UserController::class, 'change_password'])->middleware('auth')->name('change-password');
 
+Route::view('/reset-password', 'auth.reset-password')->middleware('guest')->name('reset-password');
+
+Route::post('/reset-password', [UserController::class, 'reset_password'])->middleware('guest');
+
 // Διαδρομή προσθήκης προϊόντος στο καλάθι
 Route::post('/add_to_cart/{product}', [CartController::class, 'add_to_cart'])->middleware('auth')->name('add_to_cart');
 

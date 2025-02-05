@@ -14,5 +14,6 @@
             <div><button type="submit">Σύνδεση</button></div>
         </form>
         <p class="action-footer"><a href="{{ route('register') }}">Δεν έχετε λογαριασμό; Εγγραφείτε</a></p>
+        <p class="action-footer"><a href="{{ route('reset-password') }}">Ξεχάσατε τον κωδικό σας; Πατήστε εδώ για να τον ανακτήσετε</a></p>
     </div>
 </x-layout>

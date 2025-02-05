@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class CartController
@@ -60,7 +62,17 @@ class CartController extends Controller
 
         // Save the updated items back to the cart
         $cart->items = json_encode($items);
-        $cart->save();
+        try{
+            $cart->save();
+        } 
+        catch (\Exception $e) {
+            Log::error($userId.' '.$e->getMessage());
+            return response()->json([
+                'status' => 'failure',
+                'message' => 'Το προϊόν δεν προστέθηκε στο καλάθι, προσπαθήστε αργότερα',
+                'new_stock' => $product->stock
+            ]);
+        }
        
         return response()->json([
             'status' => 'success',
@@ -106,6 +118,7 @@ class CartController extends Controller
         try {
             $cart->save();
         } catch (Exception $e) {
+            Log::error($userId.' '.$e->getMessage());
             return redirect(route('cart'))->with('failure', 'Το καλάθι σας δεν ενημερώθηκε, προσπαθήστε αργότερα');
         }
 
@@ -143,10 +156,21 @@ class CartController extends Controller
 
         // Save the updated items back to the cart
         $cart->items = json_encode(array_values($items));
-        $cart->save();
+        try{
+            $cart->save();
+        }
+        catch (\Exception $e) {
+            Log::error($userId.' '.$e->getMessage());
+            return redirect(route('cart'))->with('failure', 'Το προϊόν δεν αφαιρέθηκε από το καλάθι, προσπαθήστε αργότερα');
+        }
 
         if(empty($items)) {
-            $cart->delete();
+            try{
+                $cart->delete();
+            }
+            catch (\Exception $e) {
+                Log::error($userId.' '.$e->getMessage());
+            }
         }
         return redirect(route('cart'))->with('success', 'Το προϊόν αφαιρέθηκε από το καλάθι');
     }

@@ -37,6 +37,7 @@
                 <button class="btn btn-primary d-block w-100" type="submit">Εγγραφή</button>
             </div>
             <p class="action-footer"><a href="{{ route('login') }}">Έχετε λογαριασμό; Συνδεθείτε</a></p>
+            <p class="action-footer"><a href="{{ route('reset-password') }}">Ξεχάσατε τον κωδικό σας; Πατήστε εδώ για να τον ανακτήσετε</a></p>
         </form>
     </div>
 </x-layout>
