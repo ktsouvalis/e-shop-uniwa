@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Mail\ResetPassword;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -23,13 +24,17 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-
+        try{
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+            ]);
+        } catch (\Exception $e) {
+            Log::error($request->email.' '.$e->getMessage());
+            return back()->with('failure', 'Προέκυψε σφάλμα, επικοινωνήστε με τον διαχειριστή!');
+        }
+    
         Auth::login($user);
 
         return redirect()->route('index')->with('success', 'Καλώς ήρθατε '.Auth::user()->name);
@@ -85,10 +90,16 @@ class UserController extends Controller
         }
         $user = Auth::user();
 
-        $user->password = bcrypt($incomingFields['pass1']);
-        $user->save();
+        $user->password = bcrypt($incomingFields['new_password']);
+        try{
+            $user->save();
+        } 
+        catch (\Exception $e) {
+            Log::error($user->id.' '.$e->getMessage());
+            return back()->with('failure', 'Προέκυψε σφάλμα, επικοινωνήστε με τον διαχειριστή!');
+        }
 
-        return redirect(url('/index_user'))->with('success', 'Ο νέος σας κωδικός αποθηκεύτηκε επιτυχώς');
+        return redirect(route('index'))->with('success', 'Ο νέος σας κωδικός αποθηκεύτηκε επιτυχώς');
     }
 
     public function reset_password(Request $request){
@@ -103,9 +114,15 @@ class UserController extends Controller
         }
         $newPassword = Str::random(8);
         $user->password = bcrypt($newPassword);
-        $user->save();
-
-        Mail::to($user->email)->send(new ResetPassword($newPassword));
+        try{
+            $user->save();
+            Mail::to($user->email)->send(new ResetPassword($newPassword));
+        } 
+        catch (\Exception $e) {
+            Log::error($user->id.' '.$e->getMessage());
+            return back()->with('failure', 'Προέκυψε σφάλμα, επικοινωνήστε με τον διαχειριστή!');
+        }
+        
         return redirect(url('/login'))->with('success', 'Ελέγξτε το email σας για τον νέο κωδικό πρόσβασης');
     }
 }

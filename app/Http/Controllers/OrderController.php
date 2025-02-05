@@ -8,6 +8,7 @@ use App\Models\Address;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class OrderController
@@ -48,6 +49,7 @@ class OrderController extends Controller
             $user->cart->delete();
             DB::commit();
         } catch (Exception $e) {
+            Log::error($user->id.' '.$e->getMessage());
             DB::rollBack();
             return redirect()->route('cart')->with('failure', $e->getMessage());
         }

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Address;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 class AddressController extends Controller
@@ -20,12 +21,16 @@ class AddressController extends Controller
             return redirect()->back()->with('failure', $validation->errors()->first());
         }
         $fullAddress = $request->address . ', ' . $request->city . ', ' . $request->zip;
-
-        Address::create([
-            'user_id' => Auth::id(),
-            'name' => $request->name,
-            'address' => $fullAddress,
-        ]);
+        try{
+            $address = Address::create([
+                'user_id' => Auth::id(),
+                'name' => $request->name,
+                'address' => $fullAddress,
+            ]);
+        } catch (\Exception $e) {
+            Log::error(Auth::user()->id.' '.$e->getMessage());
+            return redirect()->back()->with('failure', 'Προέκυψε σφάλμα, επικοινωνήστε με τον διαχειριστή!');
+        }
 
         return redirect()->back()->with('success', 'Η διεύθυνση προστέθηκε!');
     }
@@ -48,18 +53,29 @@ class AddressController extends Controller
         }
         $fullAddress = $request->address . ', ' . $request->city . ', ' . $request->zip;
 
-        $address->update([
-            'name' => $request->name,
-            'address' => $fullAddress,
-        ]);
+        try{
+            $address->update([
+                'name' => $request->name,
+                'address' => $fullAddress,
+            ]);
+        }
+        catch (\Exception $e) {
+            Log::error(Auth::user()->id.' '.$e->getMessage());
+            return redirect()->back()->with('failure', 'Προέκυψε σφάλμα, επικοινωνήστε με τον διαχειριστή!');
+        }
 
         return redirect()->route('profile')->with('success', 'Η διεύθυνση ενημερώθηκε!');
     }
 
     public function destroy(Address $address)
     {
-        $address->delete();
-
+        try{
+            $address->delete();
+        }
+        catch (\Exception $e) {
+            Log::error(Auth::user()->id.' '.$e->getMessage());
+            return redirect()->back()->with('failure', 'Προέκυψε σφάλμα, επικοινωνήστε με τον διαχειριστή!');
+        }
         return redirect()->back()->with('success', 'Η διεύθυνση διαγράφτηκε!');
     }
 }
