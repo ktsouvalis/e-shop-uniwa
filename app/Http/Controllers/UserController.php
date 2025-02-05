@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Mail\ResetPassword;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -86,5 +89,23 @@ class UserController extends Controller
         $user->save();
 
         return redirect(url('/index_user'))->with('success', 'Ο νέος σας κωδικός αποθηκεύτηκε επιτυχώς');
+    }
+
+    public function reset_password(Request $request){
+        $incomingFields = $request->all();
+        $request->validate([
+            'email' => 'required|string|email',
+        ]);
+
+        $user = User::where('email', $incomingFields['email'])->first();
+        if($user == null){
+            return back()->with('failure', 'Δεν υπάρχει χρήστης με αυτό το email');
+        }
+        $newPassword = Str::random(8);
+        $user->password = bcrypt($newPassword);
+        $user->save();
+
+        Mail::to($user->email)->send(new ResetPassword($newPassword));
+        return redirect(url('/login'))->with('success', 'Ελέγξτε το email σας για τον νέο κωδικό πρόσβασης');
     }
 }
